@@ -15,7 +15,7 @@
         </h1>
 
         <p class="text-sm ml-4">
-          Welcome Back, {{ username }}!
+          <!-- Welcome Back, {{ username }}! -->
         </p>
       </div>
 
@@ -32,15 +32,16 @@
   </section>
 </template>
 
-<script>
-import Nav from "./Nav";
+<script lang="ts">
+import Nav from "./Nav.vue";
+import { Head } from '@inertiajs/vue3';
 
 export default {
-  components: { Nav },
+  components: { Nav, Head },
 
   computed: {
     username() {
-      return this.$page.props.auth.user.username;
+    //   return this.$page.props.auth.user.username;
     }
   }
 };
