@@ -35,4 +35,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::inertia('/', 'Home');
+Route::inertia('/settings', 'Settings');
+Route::get('/users', [UsersController::class, 'index']);
+Route::get('/users/create', [UsersController::class, 'create']);
+Route::post('/users', [UsersController::class, 'store']);
+
 require __DIR__.'/auth.php';
