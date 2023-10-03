@@ -31,27 +31,14 @@ class HandleInertiaRequests extends Middleware
     public function share(Request $request): array
     {
         return [
-            /**
-             * parent is Middleware.php. Middlewaare::share() returns
-             * validation errors.
-             * ...parent::share($request) is using the spread operator to merge the result of the
-             * share method from the parent class into the current context
-             */
             ...parent::share($request),
             'auth' => [
-                // 'user' => $request->user(),
-                'user' => [
-                    'username' => 'JohnDoe'
-                ]
+                'user' => $request->user(),
             ],
             'ziggy' => fn () => [
                 ...(new Ziggy)->toArray(),
                 'location' => $request->url(),
             ],
-            'andorData' => [
-                'egy' => '1',
-                'ketto' => '2'
-            ]
         ];
     }
 }

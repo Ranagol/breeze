@@ -15,7 +15,7 @@
         </h1>
 
         <p class="text-sm ml-4">
-          Welcome Back, {{ username }}!
+          <!-- Welcome Back, {{ username }}! -->
         </p>
       </div>
 
@@ -41,7 +41,7 @@ export default {
 
   computed: {
     username() {
-      return this.$page.props.auth.user.username;//this needs here a type
+    //   return this.$page.props.auth.user.username;
     }
   }
 };
