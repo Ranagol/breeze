@@ -8,9 +8,10 @@
 </template>
 
 <script>
-import { Link } from '@inertiajs/vue3';
+/**
+ * This component is just a wrapper with a slot for the Link component.
+ */
 export default {
-    components: { Link },
     props: {
         active: Boolean
     }
