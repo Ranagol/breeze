@@ -38,7 +38,7 @@ Route::middleware('auth')->group(function () {
 
 Route::inertia('/', 'Home');
 Route::inertia('/settings', 'Settings');
-Route::get('/users', [UsersController::class, 'index']);
+Route::get('/users', [UsersController::class, 'index']);//lists users
 Route::get('/users/create', [UsersController::class, 'create']);
 Route::post('/users', [UsersController::class, 'store']);
 
