@@ -10,16 +10,22 @@
             importing it into this component. -->
             <title>The new title from Home</title>
         </Head>
+
+
     </Layout>
 </template>
 
-<script>
+<script lang="ts">
 import Layout from '../Shared/Layout.vue';
 
 export default {
     name: 'Home',
     components: {
         Layout,
+    },
+    data() {
+        return {
+        }
     }
 }
 </script>

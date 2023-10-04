@@ -13,11 +13,18 @@ class UsersController extends Controller
     public function index()
     {
         return Inertia::render('Users/Index', [
-            'users' => User::all()->map(fn($user) => [
+
+            /**
+             * This is how we do pagination in Inertia, when we only need the id and the name
+             * columns.
+             */
+            'users' => User::paginate(10)->through(fn($user) => [
                 'id' => $user->id,
                 'name' => $user->name
             ])
         ]);
+
+
 
         // return Inertia::render('Users/Index', [
         //     'users' => User::query()
