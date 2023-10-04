@@ -13,7 +13,10 @@ class UsersController extends Controller
     public function index()
     {
         return Inertia::render('Users/Index', [
-            'users' => User::all()
+            'users' => User::all()->map(fn($user) => [
+                'id' => $user->id,
+                'name' => $user->name
+            ])
         ]);
 
         // return Inertia::render('Users/Index', [

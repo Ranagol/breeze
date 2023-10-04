@@ -36,8 +36,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::inertia('/', 'Home');
+Route::inertia('/', 'Home');//this is a shorter way of returning a Vue component, without controller
 Route::inertia('/settings', 'Settings');
+
 Route::get('/users', [UsersController::class, 'index']);//lists users
 Route::get('/users/create', [UsersController::class, 'create']);
 Route::post('/users', [UsersController::class, 'store']);
