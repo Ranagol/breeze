@@ -74,10 +74,7 @@ export default defineComponent({
   },
   data() {
     return {
-        //If can't set this, ask Raik
-        //Install Telescope to see what you send from BE to FE
-        // search: this.props.filters.search,//STOPPED HERE, THIS IS NOT WORKING
-        //TODO ITT HAGYTAM ABBA. NEM TUDOM HOGYAN SETTELNI DATAT PROPSBOL
+        search: this.filters.search,
     }
   },
 //   computed: {
