@@ -53,11 +53,6 @@ import debounce from "lodash/debounce";
 import { defineComponent } from 'vue';
 
 
-// watch(search, debounce(function (value) {
-//   Inertia.get('/users', { search: value }, { preserveState: true, replace: true });
-// }, 300));
-
-
 export default defineComponent({
   name: 'Users',
   components: {
@@ -66,7 +61,7 @@ export default defineComponent({
   },
   props: {
     users: Object,
-    filters: {
+    filters: {//this filters have a search property
         type: Object,
         default: () =>  {}
     },
@@ -77,11 +72,6 @@ export default defineComponent({
         search: this.filters.search,
     }
   },
-//   computed: {
-//     filter():String
-//     {
-//       return this.filters.
-//     },
 
   watch: {
     // whenever question changes, this function will run
@@ -102,8 +92,11 @@ export default defineComponent({
        */
       this.$inertia.get(
         '/users',
-        { search: this.search},
-        { preserveState: true }
+        { search: this.search},//here we send our search term to the backend
+        {
+            preserveState: true,//to remember search term
+            replace: true//something about history records... Not important
+        }
       );
     }
   },

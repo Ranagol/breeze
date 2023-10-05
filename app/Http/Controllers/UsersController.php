@@ -38,6 +38,10 @@ class UsersController extends Controller
              * what if a user receves a link like this: http://127.0.0.1:8000/users?search=aida,
              * and clicks on it? We will take this filter out of the request and send it back
              * to Vue.
+             *
+             * Also, this way if there is a page refresh, the backend will remember the search term,
+             * an will send it back to Vue. This way the search term will not be lost.
+             *
              * Request::only(['search'] --- use only the 'search' param
              * So, again, here the server is sending the browser the filters back, and this will
              * be the initial search value on the frontend.
