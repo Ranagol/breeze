@@ -2,15 +2,15 @@
   <Head title="Users new" />
 
   <Layout>
-    <!-- <div>
-      <h1 class="text-4xl font-bold">Page: Users</h1>
+    <div class="flex justify-between mb-6">
+        <div class="flex items-center">
+            <h1 class="text-3xl">Users</h1>
 
-      <h4>Users list</h4>
-      <ul>
-        <li v-for="user in users" :key="user.id">{{ user.name }}</li>
-      </ul>
-    </div> -->
+            <!-- <Link v-if="can.createUser" href="/users/create" class="text-blue-500 text-sm ml-3">New User</Link> -->
+        </div>
 
+    <input v-model="search" type="text" placeholder="Search..." class="border px-2 rounded-lg" />
+    </div>
 
     <div class="flex flex-col">
         <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -48,14 +48,68 @@
 <script lang="ts">
 import Layout from '../../Shared/Layout.vue';
 import Pagination from "../../Shared/Pagination.vue";
-export default {
+// import { Inertia } from '@inertiajs/inertia';
+import debounce from "lodash/debounce";
+import { defineComponent } from 'vue';
+
+
+// watch(search, debounce(function (value) {
+//   Inertia.get('/users', { search: value }, { preserveState: true, replace: true });
+// }, 300));
+
+
+export default defineComponent({
   name: 'Users',
   components: {
     Layout,
     Pagination
   },
   props: {
-    users: Array,
+    users: Object,
+    filters: {
+        type: Object,
+        default: () =>  {}
+    },
+    can: Object
   },
-}
+  data() {
+    return {
+        //If can't set this, ask Raik
+        //Install Telescope to see what you send from BE to FE
+        // search: this.props.filters.search,//STOPPED HERE, THIS IS NOT WORKING
+        //TODO ITT HAGYTAM ABBA. NEM TUDOM HOGYAN SETTELNI DATAT PROPSBOL
+    }
+  },
+//   computed: {
+//     filter():String
+//     {
+//       return this.filters.
+//     },
+
+  watch: {
+    // whenever question changes, this function will run
+    search(newValue, oldValue) {
+      console.log('newValue:', newValue);
+      /**
+       * this.$inertia.get(... <- this is for Options API only, will not work in Composition API.
+       *
+       * Here we are making a get request. Meaning, this request and its params will appear in the
+       * query string. This will create something like this:
+       * http://127.0.0.1:8000/users?search=mySearchTerm
+       *
+       * Whenever we trigger the this.$inertia, it will rerender the page. And the typed in letter
+       * in the search field will disappear. We have to preserve this state, so the typed in letters
+       * do not disappear. We do this with this line: { preserveState: true }.
+       *
+       * Now, we send a request for every typed letter. This is not good.
+       */
+      this.$inertia.get(
+        '/users',
+        { search: this.search},
+        { preserveState: true }
+      );
+    }
+  },
+
+});
 </script>
