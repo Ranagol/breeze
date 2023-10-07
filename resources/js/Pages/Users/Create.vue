@@ -3,7 +3,7 @@
 
   <h1 class="text-3xl">Create New User</h1>
 
-  <form @submit.prevent="submit" class="max-w-md mx-auto mt-8">
+  <!-- <form @submit.prevent="submit" class="max-w-md mx-auto mt-8">
     <div class="mb-6">
       <label class="block mb-2 uppercase font-bold text-xs text-gray-700" for="name"> Name </label>
 
@@ -36,19 +36,37 @@
     <div class="mb-6">
       <button type="submit" class="bg-blue-400 text-white rounded py-2 px-4 hover:bg-blue-500" :disabled="form.processing">Submit</button>
     </div>
-  </form>
+  </form> -->
+
 </template>
 
-<script setup>
-import { useForm } from "@inertiajs/inertia-vue3";
 
-let form = useForm({
-  name: '',
-  email: '',
-  password: '',
+
+<script lang="ts">
+import { defineComponent } from 'vue';
+export default defineComponent({
+	name:'',
+		components: {
+	},
+	data() {
+		return {
+			form: {
+				name: '',
+				email: '',
+				password: '',
+			}
+		}
+	},
+
+	methods: {
+		submit(){
+			form.post('/users');
+		}
+	},
+
 });
-
-let submit = () => {
-  form.post('/users');
-};
 </script>
+
+<style scoped>
+
+</style>
