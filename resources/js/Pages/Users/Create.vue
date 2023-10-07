@@ -4,21 +4,47 @@
   <h1 class="text-3xl">Create New User</h1>
 
   <!-- NAME -->
+  <!-- Here we prevent the default submitting behaviour of the <form></form>. Instead we say to the
+  form: when you are submitted, do not send the data to backend, just trigger the submit() method.
+  submit() will do the rest of the job. -->
   <form @submit.prevent="submit" class="max-w-md mx-auto mt-8">
     <div class="mb-6">
       <label class="block mb-2 uppercase font-bold text-xs text-gray-700" for="name"> Name </label>
 
-      <input v-model="form.name" class="border border-gray-400 p-2 w-full" type="text" name="name" id="name" required />
-      <div v-if="form.errors.name" v-text="form.errors.name" class="text-red-500 text-xs mt-1"></div>
+      <input
+        v-model="form.name"
+        class="border border-gray-400 p-2 w-full"
+        type="text"
+        name="name"
+        id="name"
+        required
+      />
+
+      <div
+        v-if="form.errors.name"
+        v-text="form.errors.name"
+        class="text-red-500 text-xs mt-1"></div
+      >
     </div>
 
     <!-- EMAIL -->
     <div class="mb-6">
       <label class="block mb-2 uppercase font-bold text-xs text-gray-700" for="email"> Email </label>
 
-      <input v-model="form.email" class="border border-gray-400 p-2 w-full" type="email" name="email" id="email" required />
+      <input
+        v-model="form.email"
+        class="border border-gray-400 p-2 w-full"
+        type="email"
+        name="email"
+        id="email"
+        required
+      />
 
-      <div v-if="form.errors.email" v-text="form.errors.email" class="text-red-500 text-xs mt-1"></div>
+      <div
+        v-if="form.errors.email"
+        v-text="form.errors.email"
+        class="text-red-500 text-xs mt-1"></div
+      >
     </div>
 
     <!-- PASSWORD -->
@@ -34,16 +60,21 @@
       />
 
       <!-- ERROR DISPLAY -->
-      <div v-if="form.errors.password" v-text="form.errors.password" class="text-red-500 text-xs mt-1"></div>
+      <div
+        v-if="form.errors.password"
+        v-text="form.errors.password"
+        class="text-red-500 text-xs mt-1"></div
+      >
     </div>
 
     <!-- SUBMIT BUTTON -->
     <div class="mb-6">
-      <button 
-        type="submit" 
-        class="bg-blue-400 text-white rounded py-2 px-4 hover:bg-blue-500" 
+      <button
+        type="submit"
+        class="bg-blue-400 text-white rounded py-2 px-4 hover:bg-blue-500"
         :disabled="form.processing"
-      >Submit</button>
+        >Submit
+      </button>
     </div>
   </form>
 
@@ -51,9 +82,9 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { useForm } from '@inertiajs/vue3';//This is how we can use the form helper
+import { useForm } from '@inertiajs/vue3';//0-Importing the form helper
 export default defineComponent({
-	name:'',
+	name:'Create',
 		components: {
 	},
 	data() {
@@ -68,7 +99,7 @@ export default defineComponent({
 
 	methods: {
 		submit(){
-			this.form.post('/users');//2-We use the form object for sending requests
+			this.form.post('/users');//2-We use the form object from the data() for sending requests
 		}
 	},
 
@@ -78,3 +109,6 @@ export default defineComponent({
 <style scoped>
 
 </style>
+
+
+

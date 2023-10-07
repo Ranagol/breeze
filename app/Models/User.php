@@ -42,4 +42,13 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+  
+  /**
+   * Whenever we create a user for our database, when setting the users password, this function
+   * will be triggered automatically, and it will crypt the password into a long string of symbols.
+   */
+  public function setPasswordAttribute($value)
+  {
+    $this->attributes['password'] = bcrypt($value);
+  }
 }
