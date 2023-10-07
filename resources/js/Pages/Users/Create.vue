@@ -3,6 +3,8 @@
 
   <h1 class="text-3xl">Create New User</h1>
 
+  <h1 v-text="text"></h1>
+
   <!-- NAME -->
   <!-- Here we prevent the default submitting behaviour of the <form></form>. Instead we say to the
   form: when you are submitted, do not send the data to backend, just trigger the submit() method.
@@ -17,7 +19,6 @@
         type="text"
         name="name"
         id="name"
-        required
       />
 
       <div
@@ -37,7 +38,6 @@
         type="email"
         name="email"
         id="email"
-        required
       />
 
       <div
@@ -93,7 +93,8 @@ export default defineComponent({
 				name: '',
 				email: '',
 				password: '',
-			})
+			}),
+      text: 'Some random text from data()',
 		}
 	},
 
@@ -102,6 +103,13 @@ export default defineComponent({
 			this.form.post('/users');//2-We use the form object from the data() for sending requests
 		}
 	},
+
+  mounted() {
+    console.log(`the component is now mounted.`);
+    console.dir(this.$page);
+    console.dir(this.$page.props.errors);
+  }
+
 
 });
 </script>
