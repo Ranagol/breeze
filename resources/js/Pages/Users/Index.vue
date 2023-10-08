@@ -53,7 +53,10 @@ import Layout from '../../Shared/Layout.vue';
 import Pagination from "../../Shared/Pagination.vue";
 // import { Inertia } from '@inertiajs/inertia';
 import debounce from "lodash/debounce";
-import { defineComponent } from 'vue';
+import throttle from "lodash/throttle";
+import { defineComponent, ref, watch } from 'vue';
+import { Inertia } from '@inertiajs/vue3';
+// import { Inertia } from '@inertiajs/inertia';
 
 
 export default defineComponent({
@@ -72,37 +75,51 @@ export default defineComponent({
   },
   data() {
     return {
-        search: this.filters.search,
+      search: this.filters.search,
     }
   },
+  watch: {//1. style
+    search: debounce(function (value) {
+      this.$inertia.get('/users', {search: value}, {
+        preserveState: true,
+        replace: true
+      })
+    }, 300)
+  }
 
-  watch: {
-    // whenever question changes, this function will run
-    search(newValue, oldValue) {
-      console.log('newValue:', newValue);
-      /**
-       * this.$inertia.get(... <- this is for Options API only, will not work in Composition API.
-       *
-       * Here we are making a get request. Meaning, this request and its params will appear in the
-       * query string. This will create something like this:
-       * http://127.0.0.1:8000/users?search=mySearchTerm
-       *
-       * Whenever we trigger the this.$inertia, it will rerender the page. And the typed in letter
-       * in the search field will disappear. We have to preserve this state, so the typed in letters
-       * do not disappear. We do this with this line: { preserveState: true }.
-       *
-       * Now, we send a request for every typed letter. This is not good.
-       */
-      this.$inertia.get(
-        '/users',
-        { search: this.search},//here we send our search term to the backend
-        {
-          preserveState: true,//to remember search term
-          replace: true//something about history records... Not important
-        }
-      );
-    }
-  },
+  // watch: {//2. style
+    
+  //   /**
+  //    * whenever the value in search input field changes, this function will send a new request.
+  //    * Meaning: for every typed in letter, Vue will send a request. That is not good. We want requests,
+  //    * but not that many.
+  //    */
+  //   search(newValue, oldValue) {
+  //     console.log('newValue:', newValue);
+  //     console.dir('inertia object', this.$inertia);
+  //     /**
+  //      * this.$inertia.get(... <- this is for Options API only, will not work in Composition API.
+  //      *
+  //      * Here we are making a get request. Meaning, this request and its params will appear in the
+  //      * query string. This will create something like this:
+  //      * http://127.0.0.1:8000/users?search=mySearchTerm
+  //      *
+  //      * Whenever we trigger the this.$inertia, it will rerender the page. And the typed in letter
+  //      * in the search field will disappear. We have to preserve this state, so the typed in letters
+  //      * do not disappear. We do this with this line: { preserveState: true }.
+  //      *
+  //      * Now, we send a request for every typed letter. This is not good.
+  //      */
+  //     this.$inertia.get(
+  //       '/users',
+  //       { search: this.search},//here we send our search term to the backend
+  //       {
+  //         preserveState: true,//to remember search term
+  //         replace: true//something about history records... Not important
+  //       }
+  //     );
+  //   }
+  // },
 
 });
 </script>
