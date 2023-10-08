@@ -41,7 +41,11 @@ export default {
 
   computed: {
     username() {
-    //   return this.$page.props.auth.user.username;
+
+      /**
+       * This data is set and send from app\Http\Middleware\HandleInertiaRequests.php, share().
+       */
+      // return this.$page.props.auth.user.username;
     }
   }
 };
