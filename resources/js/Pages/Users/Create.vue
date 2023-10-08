@@ -3,8 +3,6 @@
 
   <h1 class="text-3xl">Create New User</h1>
 
-  <h1 v-text="text"></h1>
-
   <!-- NAME -->
   <!-- Here we prevent the default submitting behaviour of the <form></form>. Instead we say to the
   form: when you are submitted, do not send the data to backend, just trigger the submit() method.
@@ -68,6 +66,10 @@
     </div>
 
     <!-- SUBMIT BUTTON -->
+    <!-- To avoid spamming and multiple user creations, we want to disable the Submit button, after
+    it was clicked. But we only want it disabled, while the request is processing. The form helper
+    knows when this processing is true or false. And we use that here for disabling the button. In
+    :disabled="form.processing"-->
     <div class="mb-6">
       <button
         type="submit"
@@ -94,7 +96,6 @@ export default defineComponent({
 				email: '',
 				password: '',
 			}),
-      text: 'Some random text from data()',
 		}
 	},
 
@@ -109,8 +110,6 @@ export default defineComponent({
     console.dir(this.$page);
     console.dir(this.$page.props.errors);
   }
-
-
 });
 </script>
 
