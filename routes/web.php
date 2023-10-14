@@ -23,6 +23,12 @@ use App\Http\Controllers\ProfileController;
  */
 Route::get('login', [LoginController::class, 'create'])->name('login');
 Route::post('login', [LoginController::class, 'store'])/*->name('login ')*/;
+/**
+ * ->middleware('auth') = the user must be logged in, in order to do a logout. That is why we use
+ * here the auth middleware.
+ */
+Route::post('logout', [LoginController::class, 'destroy'])->name('logout')->middleware('auth');
+
 
 
 Route::middleware('auth')->group(function () {
@@ -36,7 +42,12 @@ Route::middleware('auth')->group(function () {
 
   //USERS
   Route::get('/users', [UsersController::class, 'index']);//lists users
-  Route::get('/users/create', [UsersController::class, 'create']);
+  
+  /**
+   * ->middleware('can:create, App\Models\User');   <- here we use the UserPolicy.php.
+   * Only allow this route, if the user can create a new user.
+   */
+  Route::get('/users/create', [UsersController::class, 'create'])->middleware('can:create, App\Models\User');
   Route::post('/users', [UsersController::class, 'store']);
 
   //PROFILES

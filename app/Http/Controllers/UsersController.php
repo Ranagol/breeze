@@ -30,7 +30,11 @@ class UsersController extends Controller
               //ONLY ID AND NAME ARE NEEDED
               ->through(fn($user) => [
                   'id' => $user->id,
-                  'name' => $user->name
+                  'name' => $user->name,
+                  //Below is authorization stuff for editing users
+                  'can' => [
+                    'edit' => Auth::user()->can('edit', $user)
+                  ]
               ]),
       /**
        * 'filters' means: the already existing user name search term filters. Meaning that
@@ -45,7 +49,15 @@ class UsersController extends Controller
        * So, again, here the server is sending the browser the filters back, and this will
        * be the initial search value on the frontend.
        */
-      'filters' => Request::only(['search'])
+      'filters' => Request::only(['search']),
+
+      /**
+       * This is the authorization. What users can or can not do.
+       * ->can('create')  <- this is defined in UserPolicy@create
+       */
+      'can' => [
+        'createUser' => Auth::user()->can('create', User::class)
+      ]
     ]);
   }
 

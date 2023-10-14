@@ -7,8 +7,12 @@
     <div class="flex items-center">
         <h1 class="text-3xl">Users</h1>
 
-        <!-- v-if="can.createUser" -->
-        <Link  href="/users/create" class="text-blue-500 text-sm ml-3">New User</Link>
+        <Link
+          v-if="can.createUser"
+          href="/users/create"
+          class="text-blue-500 text-sm ml-3"
+        >New User</Link>
+
     </div>
 
     <input v-model="search" type="text" placeholder="Search..." class="border px-2 rounded-lg" />
@@ -32,9 +36,17 @@
                   </div>
                 </td>
 
-                <!-- <td v-if="user.can.edit" class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium"> -->
-                  <Link :href="`/users/${user.id}/edit`" class="text-indigo-600 hover:text-indigo-900"> Edit</Link>
-                <!-- </td> -->
+                <!-- EDIT USER -->
+                <td
+                  v-if="user.can.edit"
+                  class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium"
+                >
+                  <Link
+                    :href="`/users/${user.id}/edit`"
+                    class="text-indigo-600 hover:text-indigo-900"
+                  > Edit</Link>
+                  
+                </td>
               </tr>
             </tbody>
 
@@ -71,6 +83,9 @@ export default defineComponent({
         type: Object,
         default: () =>  {}
     },
+    /**
+     * This is the authorization, sent from backend.
+     */
     can: Object
   },
   data() {
@@ -78,6 +93,9 @@ export default defineComponent({
       search: this.filters.search,
     }
   },
+  /**
+   * So, here we have two possible style how to use the watcher. Both are ok.
+   */
   watch: {//1. style
     search: debounce(function (value) {
       this.$inertia.get('/users', {search: value}, {
