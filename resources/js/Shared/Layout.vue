@@ -1,35 +1,25 @@
 <template>
-  <Head>
-    <meta
-      type="description"
-      content="Information about my app"
-      head-key="description"
-    >
-  </Head>
+  <v-app>
+    <v-layout>
+        <v-app-bar title="Application bar">
+            <Nav/>
+        </v-app-bar>
 
-  <section class="p-6 bg-gray-200">
-    <header class="flex justify-between">
-      <div class="flex items-center">
-        <h1 class="font-bold text-lg">
-          My App
-        </h1>
+        <v-navigation-drawer>
+          <v-list>
+            <v-list-item title="Navigation drawer"></v-list-item>
+            <v-list-item title="Random stuff"></v-list-item>
+            <v-list-item title="Another item"></v-list-item>
+          </v-list>
+        </v-navigation-drawer>
+    
+        <v-main>
+            <!-- SLOT -->
+            <slot />
+        </v-main>
 
-        <p class="text-sm ml-4">
-          <!-- Welcome Back, {{ username }}! -->
-        </p>
-      </div>
-
-      <Nav />
-    </header>
-  </section>
-
-  <section class="p-6">
-    <div class="max-w-3xl mx-auto">
-
-      <!-- SLOT -->
-      <slot />
-    </div>
-  </section>
+    </v-layout>
+  </v-app>
 </template>
 
 <script lang="ts">

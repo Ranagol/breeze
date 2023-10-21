@@ -8,6 +8,17 @@ import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/vue.m';
 import { Head } from '@inertiajs/vue3';
 import Layout from './Shared/Layout.vue';
 
+// Vuetify
+import 'vuetify/styles'
+import { createVuetify } from 'vuetify'
+import * as components from 'vuetify/components'
+import * as directives from 'vuetify/directives'
+
+const vuetify = createVuetify({
+    components,
+    directives,
+});
+
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
 createInertiaApp({
@@ -56,6 +67,7 @@ createInertiaApp({
       .component('Link', Link)//global registration of Link
       .component('Head', Head)//global registration of Head
       .use(ZiggyVue, Ziggy)
+      .use(vuetify)
       .mount(el);
   },
 
