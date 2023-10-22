@@ -13,88 +13,75 @@
         text="This is content"
     ></v-card>
 
-        <VForm
-    ref="refForm"
-    @submit.prevent="() => {}"
-  >
-    <VRow>
-      <VCol
-        cols="12"
-        md="6"
-      >
-        <AppTextField
-          v-model="name"
-          placeholder="Your Name"
-          persistent-placeholder
-          :rules="[requiredValidator]"
-        />
-      </VCol>
+    <v-card
+        class="mx-auto"
+        max-width="600"
+    >
+        <VForm @submit.prevent="() => {}">
+                <VTextField
+                  v-model="firstName"
+                  label="First Name"
+                  placeholder="First Name"
+                />
+              
+        
+                <VTextField
+                  v-model="email"
+                  label="Email"
+                  type="email"
+                  placeholder="Email"
+                />
+              
+        
+                <VTextField
+                  v-model="mobile"
+                  label="Mobile"
+                  type="number"
+                  placeholder="Number"
+                />
+              
+        
+                <VTextField
+                  v-model="password"
+                  label="Password"
+                  type="password"
+                  placeholder="Password"
+                />
+              
+        
+                <VCheckbox
+                  v-model="checkbox"
+                  label="Remember me"
+                />
+              
+        
+                <VBtn type="submit">
+                  Submit
+                </VBtn>
+        
+                <VBtn
+                  type="reset"
+                  color="secondary"
+                  variant="tonal"
+                >
+                  Reset
+                </VBtn>
+        </VForm>
+    </v-card>
 
-      <VCol
-        cols="12"
-        md="6"
-      >
-        <AppTextField
-          v-model="email"
-          placeholder="Your Email"
-          persistent-placeholder
-          :rules="[requiredValidator, emailValidator]"
-        />
-      </VCol>
-
-      <VCol
-        cols="12"
-        md="6"
-      >
-        <AppTextField
-          v-model="password"
-          type="password"
-          placeholder="Your Password"
-          persistent-placeholder
-          :rules="[requiredValidator, passwordValidator]"
-          autocomplete="on"
-        />
-      </VCol>
-
-      <VCol
-        cols="12"
-        md="6"
-      >
-        <AppTextField
-          v-model="confirmPassword"
-          type="password"
-          placeholder="Confirm Password"
-          persistent-placeholder
-          :rules="[requiredValidator, confirmedValidator(confirmPassword, password)]"
-          autocomplete="on"
-        />
-      </VCol>
-
-      <VCol cols="12">
-
-        <VBtn
-          type="submit"
-          @click="refForm?.validate()"
-        >
-          Submit
-        </VBtn>
-
-      </VCol>
-    </VRow>
-  </VForm>
+  
 
 </template>
 
 <script lang="ts" setup>
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports
-import type { VForm } from 'vuetify/components/VForm'
-import { confirmedValidator, emailValidator, passwordValidator, requiredValidator } from '@validators';
+
 import { ref } from 'vue';
 
-const name = ref('')
+const firstName = ref('')
 const email = ref('')
-const refForm = ref<VForm>()
-const password = ref('')
-const confirmPassword = ref('')
+const mobile = ref<number>()
+const password = ref<string>()
+const checkbox = ref(false)
 
 </script>
