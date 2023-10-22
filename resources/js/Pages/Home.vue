@@ -8,127 +8,86 @@
         <title>Home tab title</title>
     </Head>
 
+    <h1 class="text-3xl font-bold underline">
+        Hello world!
+    </h1>
+
     <v-card
         title="Page: HOME"
         text="This is content"
+        class="p-6"
     ></v-card>
 
     <v-card
         class="mx-auto"
         max-width="600"
     >
-    <VForm
-        ref="refForm"
-        @submit.prevent="() => {}"
-    >
-        <VRow>
-        <VCol
-            cols="12"
-            md="6"
+        <VForm
+            ref="refForm"
+            @submit.prevent="submit"
+            class="p-6"
+            v-model="formValidity"
         >
-            <VTextField
-            v-model="firstName"
-            label="First Name"
-            :rules="[requiredValidator]"
-            />
-        </VCol>
-
-        <VCol
-            cols="12"
-            md="6"
-        >
-            <VTextField
-            v-model="email"
-            label="Email"
-            :rules="[requiredValidator, emailValidator]"
-            />
-        </VCol>
-
-            <VCol cols="12">
-                <VBtn
-                type="submit"
-                @click="refForm?.validate()"
+            <VRow>
+                <VCol
+                    cols="12"
+                    md="6"
                 >
-                Submit
-                </VBtn>
-            </VCol>
+                    <VTextField
+                        v-model="form.name"
+                        label="Name"
+                        :rules="[requiredValidator]"
+                    />
+                </VCol>
+
+                <VCol
+                    cols="12"
+                    md="6"
+                >
+                    <VTextField
+                        v-model="form.email"
+                        label="Email"
+                        :rules="[requiredValidator, emailValidator]"
+                    />
+                </VCol>
+
+                <VCol cols="12">
+                    <VBtn
+                        type="submit"
+                    >
+                        Submit
+                    </VBtn>
+                </VCol>
             </VRow>
         </VForm>
     </v-card>
-
-    <!-- <v-card
-        class="mx-auto"
-        max-width="600"
-    >
-        <VForm @submit.prevent="() => {}">
-                <VTextField
-                  v-model="firstName"
-                  label="First Name"
-                  placeholder="First Name"
-                />
-              
-        
-                <VTextField
-                  v-model="email"
-                  label="Email"
-                  type="email"
-                  placeholder="Email"
-                />
-              
-        
-                <VTextField
-                  v-model="mobile"
-                  label="Mobile"
-                  type="number"
-                  placeholder="Number"
-                />
-              
-        
-                <VTextField
-                  v-model="password"
-                  label="Password"
-                  type="password"
-                  placeholder="Password"
-                />
-              
-        
-                <VCheckbox
-                  v-model="checkbox"
-                  label="Remember me"
-                />
-              
-        
-                <VBtn type="submit">
-                  Submit
-                </VBtn>
-        
-                <VBtn
-                  type="reset"
-                  color="secondary"
-                  variant="tonal"
-                >
-                  Reset
-                </VBtn>
-        </VForm>
-    </v-card> -->
-
-  
-
 </template>
 
 <script lang="ts" setup>
 import { ref } from 'vue';
-// eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import type { VForm } from 'vuetify/components/VForm';
 import { emailValidator, requiredValidator } from '@validators';
+import { useForm } from '@inertiajs/vue3';//0-Importing the form helper
+import { reactive } from 'vue';
+
+const formValidity = ref(false);
+// const name = ref('');
+// const email = ref('');
+
+//When using useForm() we do not need reactive() to create reactive data. useForm can do that too.
+let form = useForm({
+    name: '',
+    email: '',
+});
 
 
-const refForm = ref<VForm>()
-
-const firstName = ref('')
-const email = ref('')
-const mobile = ref<number>()
-const password = ref<string>()
-const checkbox = ref(false)
+//This function will be triggered, when clicked on Submit button
+const submit = () => {
+    console.log('Triggered.');
+    console.log('formValidity:', formValidity.value);//this will be true, if VForm validation is ok
+    console.log('name:', form.name);
+    console.log('email:', form.email);
+    form.post('/users');//2-We use the form object from the data() for sending requests
+}
 
 </script>
