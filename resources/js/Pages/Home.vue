@@ -17,6 +17,49 @@
         class="mx-auto"
         max-width="600"
     >
+    <VForm
+        ref="refForm"
+        @submit.prevent="() => {}"
+    >
+        <VRow>
+        <VCol
+            cols="12"
+            md="6"
+        >
+            <VTextField
+            v-model="firstName"
+            label="First Name"
+            :rules="[requiredValidator]"
+            />
+        </VCol>
+
+        <VCol
+            cols="12"
+            md="6"
+        >
+            <VTextField
+            v-model="email"
+            label="Email"
+            :rules="[requiredValidator, emailValidator]"
+            />
+        </VCol>
+
+            <VCol cols="12">
+                <VBtn
+                type="submit"
+                @click="refForm?.validate()"
+                >
+                Submit
+                </VBtn>
+            </VCol>
+            </VRow>
+        </VForm>
+    </v-card>
+
+    <!-- <v-card
+        class="mx-auto"
+        max-width="600"
+    >
         <VForm @submit.prevent="() => {}">
                 <VTextField
                   v-model="firstName"
@@ -67,16 +110,20 @@
                   Reset
                 </VBtn>
         </VForm>
-    </v-card>
+    </v-card> -->
 
   
 
 </template>
 
 <script lang="ts" setup>
-// eslint-disable-next-line @typescript-eslint/consistent-type-imports
-
 import { ref } from 'vue';
+// eslint-disable-next-line @typescript-eslint/consistent-type-imports
+import type { VForm } from 'vuetify/components/VForm';
+import { emailValidator, requiredValidator } from '@validators';
+
+
+const refForm = ref<VForm>()
 
 const firstName = ref('')
 const email = ref('')
