@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SettingsController;
 
 
 // Route::get('/', function () {
@@ -38,7 +39,10 @@ Route::post('logout', [LoginController::class, 'destroy'])->name('logout')->midd
   })->middleware(['auth', 'verified'])->name('dashboard');
 
   Route::inertia('/', 'Home');//this is a shorter way of returning a Vue component, without controller
-  Route::inertia('/settings', 'Settings');
+
+
+  Route::get('/settings', [SettingsController::class, 'index'])->name('settings');
+
 
   //USERS
   Route::get('/users', [UsersController::class, 'index']);//lists users

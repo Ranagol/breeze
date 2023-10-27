@@ -4,6 +4,8 @@ namespace Tests\Unit;
 
 use Tests\TestCase;//always use this TestCase. Do not use TestCase from PHPUnit.
 use Illuminate\Foundation\Testing\RefreshDatabase;//this will make our app to work with fake db
+use Inertia\Testing\Assert;
+use Inertia\Testing\AssertableInertia;
 
 class SettingsTest extends TestCase
 {
@@ -32,7 +34,18 @@ class SettingsTest extends TestCase
      */
     public function test_inertia_page_loaded(): void
     {
-        $response = $this->get('/settins');
-        $response->assertInertia('Settings');
+        $client = [
+            'name' => 'Apple',
+            'email' => 'steve@jobs.com',
+        ];
+
+        $this->get('/settings', $client)
+            ->assertInertia(fn (AssertableInertia $page) => $page
+                ->component('Settings')
+                ->has('client', fn (AssertableInertia $page) => $page
+                    ->where('name', 'Apple')
+                    ->where('email', 'steve@jobs.com')
+                )
+            );
     }
 }
