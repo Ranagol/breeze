@@ -16,4 +16,11 @@ class ExampleTest extends TestCase
 
         $response->assertStatus(200);
     }
+
+    public function test_my_page_features(): void
+    {
+        $response = $this->get('/register');
+
+        $response->assertStatus(200);
+    }
 }
